@@ -62,7 +62,7 @@ def load_data(filepath):
     print(f"{'='*60}")
     
     df = pd.read_csv(filepath)
-    print(f"✓ Loaded {df.shape[0]} samples with {df.shape[1]} features")
+    print(f" Loaded {df.shape[0]} samples with {df.shape[1]} features")
     
     return df
 
@@ -91,7 +91,7 @@ def handle_missing_values(df):
     
     # Drop rows with missing Risk Level first
     df_clean = df.dropna(subset=[TARGET_COLUMN])
-    print(f"\n✓ Dropped {initial_count - len(df_clean)} rows with missing Risk Level")
+    print(f"\n Dropped {initial_count - len(df_clean)} rows with missing Risk Level")
     
     # Drop rows with any missing features
     df_clean = df_clean.dropna()
@@ -99,13 +99,13 @@ def handle_missing_values(df):
     final_count = len(df_clean)
     dropped = initial_count - final_count
     
-    print(f"✓ Dropped {dropped} total rows with missing values ({dropped/initial_count*100:.2f}%)")
-    print(f"✓ Remaining samples: {final_count}")
+    print(f" Dropped {dropped} total rows with missing values ({dropped/initial_count*100:.2f}%)")
+    print(f" Remaining samples: {final_count}")
     
     # Verify no missing values remain
     remaining_missing = df_clean.isnull().sum().sum()
     if remaining_missing == 0:
-        print(f"✓ All missing values handled successfully")
+        print(f" All missing values handled successfully")
     else:
         print(f"⚠ Warning: {remaining_missing} missing values still remain")
     
@@ -138,7 +138,7 @@ def encode_target(df):
         print(f"⚠ Warning: Encoding failed for some values")
         print(f"  Unknown values: {df[df[TARGET_COLUMN].isnull()][TARGET_COLUMN]}")
     else:
-        print(f"✓ Target encoding successful")
+        print(f" Target encoding successful")
     
     return df
 
@@ -167,7 +167,7 @@ def split_data(df, test_size=TEST_SIZE, random_state=RANDOM_STATE):
         stratify=y  # CRITICAL: maintains class balance
     )
     
-    print(f"\n✓ Split complete:")
+    print(f"\n Split complete:")
     print(f"  Training set: {X_train.shape[0]} samples ({(1-test_size)*100:.0f}%)")
     print(f"  Test set: {X_test.shape[0]} samples ({test_size*100:.0f}%)")
     
@@ -206,7 +206,7 @@ def scale_features(X_train, X_test):
     # Fit scaler on TRAINING data only
     scaler.fit(X_train[NUMERICAL_FEATURES])
     
-    print(f"\n✓ Scaler fitted on training data")
+    print(f"\n Scaler fitted on training data")
     print(f"  Training set means:")
     for i, feature in enumerate(NUMERICAL_FEATURES):
         print(f"    {feature}: {scaler.mean_[i]:.2f}")
@@ -222,7 +222,7 @@ def scale_features(X_train, X_test):
     scaled_means = X_train_scaled[NUMERICAL_FEATURES].mean()
     scaled_stds = X_train_scaled[NUMERICAL_FEATURES].std()
     
-    print(f"\n✓ Features scaled successfully")
+    print(f"\n Features scaled successfully")
     print(f"  Training set after scaling:")
     print(f"    Mean (should be ~0): {scaled_means.mean():.6f}")
     print(f"    Std (should be ~1): {scaled_stds.mean():.6f}")
@@ -247,16 +247,16 @@ def save_processed_data(X_train, X_test, y_train, y_test, scaler):
     y_train.to_csv(f'{DATA_PROCESSED_PATH}y_train.csv', index=False, header=True)
     y_test.to_csv(f'{DATA_PROCESSED_PATH}y_test.csv', index=False, header=True)
     
-    print(f"✓ Saved training features: {DATA_PROCESSED_PATH}X_train.csv")
-    print(f"✓ Saved test features: {DATA_PROCESSED_PATH}X_test.csv")
-    print(f"✓ Saved training labels: {DATA_PROCESSED_PATH}y_train.csv")
-    print(f"✓ Saved test labels: {DATA_PROCESSED_PATH}y_test.csv")
+    print(f" Saved training features: {DATA_PROCESSED_PATH}X_train.csv")
+    print(f" Saved test features: {DATA_PROCESSED_PATH}X_test.csv")
+    print(f" Saved training labels: {DATA_PROCESSED_PATH}y_train.csv")
+    print(f" Saved test labels: {DATA_PROCESSED_PATH}y_test.csv")
     
     # Save scaler
     joblib.dump(scaler, f'{MODELS_PATH}scaler.pkl')
-    print(f"✓ Saved scaler: {MODELS_PATH}scaler.pkl")
+    print(f" Saved scaler: {MODELS_PATH}scaler.pkl")
     
-    print(f"\n✓ All files saved successfully")
+    print(f"\n All files saved successfully")
 
 def preprocessing_pipeline(input_filepath):
     """
@@ -304,7 +304,7 @@ def preprocessing_pipeline(input_filepath):
     print(f"  Training samples: {len(X_train_scaled)}")
     print(f"  Test samples: {len(X_test_scaled)}")
     print(f"  Features: {len(ALL_FEATURES)}")
-    print(f"\n✓ Ready for model training!")
+    print(f"\n Ready for model training!")
     
     return X_train_scaled, X_test_scaled, y_train, y_test, scaler
 
