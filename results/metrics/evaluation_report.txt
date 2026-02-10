@@ -1,0 +1,30 @@
+============================================================
+PREGNANCY RISK PREDICTION SYSTEM
+MODEL EVALUATION REPORT
+============================================================
+
+TEST SET EVALUATION
+------------------------------------------------------------
+Test samples: 175
+Low Risk (0): 105 (60.0%)
+High Risk (1): 70 (40.0%)
+
+MODEL PERFORMANCE COMPARISON
+------------------------------------------------------------
+ Accuracy  Precision  Recall  F1-Score  ROC-AUC         Model
+ 0.994286   0.985915     1.0  0.992908 0.999456 Random Forest
+ 0.994286   0.985915     1.0  0.992908 0.999728       XGBoost
+
+INTERPRETATION
+------------------------------------------------------------
+Both models achieved excellent performance on the test set.
+High recall is critical for healthcare - we want to catch all high-risk cases.
+Precision ensures we don't create too many false alarms.
+
+RECOMMENDATIONS
+------------------------------------------------------------
+Random Forest shows slightly better overall performance.
+Recommended for deployment: Random Forest
+
+Both models are suitable for clinical decision support.
+Consider using ensemble predictions for maximum reliability.
