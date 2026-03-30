@@ -189,7 +189,7 @@ def create_enhanced_feature_distributions(df: pd.DataFrame) -> None:
 
     for idx, feature in enumerate(NUMERICAL_FEATURES):
         ax = axes[idx]
-        sns.boxplot(
+        sns.violinplot(
             data=df_viz,
             x=TARGET_COLUMN,
             hue=TARGET_COLUMN,
@@ -197,7 +197,7 @@ def create_enhanced_feature_distributions(df: pd.DataFrame) -> None:
             order=CLASS_ORDER,
             hue_order=CLASS_ORDER,
             palette={"Low": BAR_PALETTE[0], "High": BAR_PALETTE[1]},
-            width=0.55,
+            inner="box",
             linewidth=2.0,
             ax=ax,
         )
@@ -245,7 +245,7 @@ def create_enhanced_confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray, mod
         cm,
         annot=True,
         fmt="d",
-        cmap="Greys",
+        cmap="Blues",
         cbar_kws={"label": "Count"},
         xticklabels=["Low Risk", "High Risk"],
         yticklabels=["Low Risk", "High Risk"],
