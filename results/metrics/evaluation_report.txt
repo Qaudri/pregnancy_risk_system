@@ -12,7 +12,7 @@ High Risk (1): 70 (40.0%)
 MODEL PERFORMANCE COMPARISON
 ------------------------------------------------------------
  Accuracy  Precision  Recall  F1-Score  ROC-AUC         Model
- 0.994286   0.985915     1.0  0.992908 0.999456 Random Forest
+ 0.994286   0.985915     1.0  0.992908 0.999864 Random Forest
  0.994286   0.985915     1.0  0.992908 0.999728       XGBoost
 
 INTERPRETATION
