@@ -1,0 +1,133 @@
+=== RAW DATASET ===
+Shape: (1205, 12)
+Total missing: 53
+Missing per column:
+ Age                        0
+Systolic BP                5
+Diastolic                  4
+BS                         2
+Body Temp                  0
+BMI                       18
+Previous Complications     2
+Preexisting Diabetes       2
+Gestational Diabetes       0
+Mental Health              0
+Heart Rate                 2
+Risk Level                18
+dtype: int64
+Rows containing any missing value: 39
+Risk Level (raw):
+ Risk Level
+Low     713
+High    474
+NaN      18
+Name: count, dtype: int64
+
+=== CLEANED DATASET ===
+Shape: (1166, 12)
+Risk Level (cleaned):
+ Risk Level
+Low     702
+High    464
+Name: count, dtype: int64
+
+=== SPLITS ===
+Train: 1166 -> (991, 11) test: (175, 11)
+Train class dist: {0: 597, 1: 394}
+Test class dist: {0: 105, 1: 70}
+Features: ['Age', 'Systolic BP', 'Diastolic', 'BS', 'Body Temp', 'BMI', 'Heart Rate', 'Previous Complications', 'Preexisting Diabetes', 'Gestational Diabetes', 'Mental Health']
+
+=== RF FEATURE IMPORTANCE ===
+                     f      imp
+  Preexisting Diabetes 0.202223
+                   BMI 0.194018
+                    BS 0.177370
+            Heart Rate 0.140897
+         Mental Health 0.110831
+  Gestational Diabetes 0.079992
+Previous Complications 0.047768
+                   Age 0.015272
+             Diastolic 0.013601
+           Systolic BP 0.013484
+             Body Temp 0.004544
+
+=== XGB FEATURE IMPORTANCE ===
+                     f      imp
+  Preexisting Diabetes 0.286973
+  Gestational Diabetes 0.200437
+                   BMI 0.132592
+                    BS 0.094033
+         Mental Health 0.093767
+Previous Complications 0.088060
+            Heart Rate 0.051947
+           Systolic BP 0.020804
+                   Age 0.012985
+             Diastolic 0.010660
+             Body Temp 0.007741
+
+=== RF TEST ===
+Confusion matrix [[TN,FP],[FN,TP]]:
+ [[104   1]
+ [  0  70]]
+ROC-AUC: 0.9998639455782312
+              precision    recall  f1-score   support
+
+         Low     1.0000    0.9905    0.9952       105
+        High     0.9859    1.0000    0.9929        70
+
+    accuracy                         0.9943       175
+   macro avg     0.9930    0.9952    0.9941       175
+weighted avg     0.9944    0.9943    0.9943       175
+
+RF prob — low-risk mean/std: 0.05309285757580509 0.10887455793763078
+RF prob — high-risk mean/std: 0.9460410136434358 0.0802745857305179
+
+=== XGB TEST ===
+Confusion matrix [[TN,FP],[FN,TP]]:
+ [[104   1]
+ [  0  70]]
+ROC-AUC: 0.9997278911564625
+              precision    recall  f1-score   support
+
+         Low     1.0000    0.9905    0.9952       105
+        High     0.9859    1.0000    0.9929        70
+
+    accuracy                         0.9943       175
+   macro avg     0.9930    0.9952    0.9941       175
+weighted avg     0.9944    0.9943    0.9943       175
+
+XGB prob — low-risk mean/std: 0.017064159736037254 0.08633539080619812
+XGB prob — high-risk mean/std: 0.9822567701339722 0.053795620799064636
+
+=== RF vs XGB AGREEMENT ===
+Prob Pearson r: 0.989605917095515
+Importance rank Pearson r: 0.8454545454545455
+Identical predictions: 175 / 175
+
+=== 5-FOLD CV (training set) ===
+RF accuracy: 0.9808 ± 0.0059
+RF precision: 0.9655 ± 0.0139
+RF recall: 0.9873 ± 0.0081
+RF f1: 0.9762 ± 0.0072
+XGB accuracy: 0.9899 ± 0.0055
+XGB precision: 0.9873 ± 0.0079
+XGB recall: 0.9873 ± 0.0080
+XGB f1: 0.9873 ± 0.0069
+
+=== XGB MEAN |SHAP| ===
+                     f  mean_abs_shap
+                   BMI       1.735994
+  Preexisting Diabetes       1.509764
+         Mental Health       1.055488
+                    BS       0.926520
+            Heart Rate       0.833265
+  Gestational Diabetes       0.589864
+             Diastolic       0.327039
+Previous Complications       0.325374
+           Systolic BP       0.291206
+                   Age       0.180103
+             Body Temp       0.112915
+Waterfall sample index: 33
+Base value (expected_value): 0.09009815007448196
+Sample SHAP sum: 7.252546310424805
+Sample predicted prob: 0.9993531107902527
