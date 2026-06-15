@@ -231,6 +231,9 @@ def create_enhanced_rf_importance(rf_model, feature_names: list[str]) -> pd.Data
     )
     ax.invert_yaxis()
     ax.grid(axis="x")
+    # Label axes for clarity in the publication-style figure
+    ax.set_xlabel("Importance")
+    ax.set_ylabel("Feature")
     ax.bar_label(bars, labels=[f"{v:.4f}" for v in importance_df["Importance"]],
                  label_type="center", color="white", fontweight="bold", fontsize=9)
     fig.tight_layout()
@@ -328,6 +331,16 @@ def create_enhanced_shap_figures(xgb_model, x_test: pd.DataFrame) -> None:
 
     shap.summary_plot(shap_values, x_test, plot_type="bar", show=False, plot_size=(10, 7))
     fig = plt.gcf()
+    # Color the SHAP bar chart bars distinctly and label their values on-bar
+    ax = fig.axes[0]
+    for i, p in enumerate(ax.patches):
+        p.set_facecolor(BAR_PALETTE[i % len(BAR_PALETTE)])
+        # place value text centered on the bar
+        width = p.get_width()
+        y = p.get_y()
+        height = p.get_height()
+        ax.text(width / 2.0, y + height / 2.0, f"{width:.4f}", ha="center", va="center", color="white", fontsize=9, fontweight="bold")
+    ax.set_xlabel("Mean |SHAP value|")
     plt.tight_layout()
     save_figure(fig, "shap_bar_enhanced")
 
